@@ -132,3 +132,23 @@
     }
   }
 }
+
+.load-more-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid #111111;
+
+    &:hover {
+      cursor: pointer;
+      color: white;
+      background-color: #111111;
+    }
+  }
+}
