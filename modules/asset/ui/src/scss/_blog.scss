@@ -58,17 +58,18 @@
   li {
     float: left;
 
-    a {
+    button {
       display: block;
       color: black;
       text-align: center;
-      text-decoration: none;
       padding: 10px 20px;
       margin-right: 10px;
       border-radius: 5px;
       border: 1px solid #111111;
+      background-color: white;
 
       &:hover {
+        cursor: pointer;
         color: white;
         background-color: #111111;
       }

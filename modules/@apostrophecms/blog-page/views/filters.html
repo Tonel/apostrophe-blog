@@ -1,18 +1,31 @@
 {%- macro here(url, changes) -%}
-  {{ url | build({
-    year: data.query.year
-  }, changes) }}
+{{ url | build({
+year: data.query.year
+}, changes) }}
+{%- endmacro -%}
+
+{%- macro htmxURL(url, changes) -%}
+{%- set baseURL = here(url, changes) -%}
+{%- if baseURL.includes('?') %}
+{{- baseURL + "&showOnlyList=1&aposRefresh=1" -}}
+{%- else -%}
+{{- baseURL + "?showOnlyList=1&aposRefresh=1" -}}
+{%- endif -%}
 {%- endmacro -%}
 
 {% fragment render(data) %}
-  <ul class="bg-filter-list">
+<ul class="bg-filter-list">
     {% for year in data.filters.year %}
-      <li>
-        <a
-          class="{{ 'is-active' if data.query.year == year.value }}"
-          href="{{ here(data.url, { year: year.value }) }}"
-        >{{ __t(year.label) }}</a>
-      </li>
+    <li>
+        <button
+            class="{{ 'is-active' if data.query.year == year.value }}"
+            hx-get="{{ htmxURL(data.url, { year: year.value })}}"
+            hx-target=".blog-page"
+            hx-swap="outerHTML"
+        >
+            {{ __t(year.label) }}
+        </button>
+    </li>
     {% endfor %}
-  </ul>
+</ul>
 {% endfragment %}

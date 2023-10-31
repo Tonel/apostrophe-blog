@@ -5,31 +5,38 @@
 
 {% block title %}{{ data.page.title }} {% endblock %}
 
+{% block extraHead %}
+<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block main %}
+{% if not data.query.showOnlyList == "1" %}
 <div class="bg-container">
     <h1 class="bg-h1">{{ data.page.title }}</h1>
-
-    {% render filters.render({
-    filters: data.piecesFilters,
-    query: data.query,
-    url: data.page._url
-    }) %}
-
-    <h2>{{ __t('aposBlog:pluralLabel') }}</h2>
-
-    {% for piece in data.pieces %}
-    <div class="bg-preview-card">
-        <div class="bg-preview-date">
-            {{ __t('aposBlog:releasedOn') }} {{ piece.publishedAt | date('MMMM D, YYYY') }}
+    {% endif %}
+    <div class="blog-page">
+        <h2>{{ __t('aposBlog:filters') }}</h2>
+        {% render filters.render({
+        filters: data.piecesFilters,
+        query: data.query,
+        url: data.page._url
+        }) %}
+        <h2>{{ __t('aposBlog:pluralLabel') }}</h2>
+        {% for piece in data.pieces %}
+        <div class="bg-preview-card">
+            <div class="bg-preview-date">
+                {{ __t('aposBlog:releasedOn') }} {{ piece.publishedAt | date('MMMM D, YYYY') }}
+            </div>
+            <div class="bg-preview-title">
+                <a href="{{ piece._url }}">{{ piece.title }}</a>
+            </div>
         </div>
-        <div class="bg-preview-title">
-            <a href="{{ piece._url }}">{{ piece.title }}</a>
+        {% endfor %}
+        <div class="pagination">
+            {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url.replace("showOnlyList=1", "")) }}
         </div>
     </div>
-    {% endfor %}
-
-    <div class="pagination ">
-    {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
-    </div>
+    {% if not data.query.showOnlyList == "1" %}
 </div>
+{% endif %}
 {% endblock %}
