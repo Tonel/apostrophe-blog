@@ -8,7 +8,6 @@
 {% block main %}
 <div class="bg-container">
     <h1 class="bg-h1">{{ data.page.title }}</h1>
-    <h2>{{ __t('aposBlog:filters') }}</h2>
 
     {% render filters.render({
     filters: data.piecesFilters,
@@ -29,6 +28,8 @@
     </div>
     {% endfor %}
 
+    <div class="pagination ">
     {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
+    </div>
 </div>
 {% endblock %}

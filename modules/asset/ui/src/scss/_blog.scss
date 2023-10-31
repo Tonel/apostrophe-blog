@@ -51,7 +51,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 18px;
 
   li {
     float: left;
@@ -61,11 +63,18 @@
       color: black;
       text-align: center;
       text-decoration: none;
-
       padding: 10px 20px;
       margin-right: 10px;
+      border-radius: 5px;
+      border: 1px solid #111111;
 
       &:hover {
+        color: white;
+        background-color: #111111;
+      }
+
+      &.is-active {
+        cursor: default;
         border-radius: 5px;
         color: white;
         background-color: #111111;
@@ -89,5 +98,37 @@
 
   .bg-preview-title {
     font-size: 20px;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  span {
+    border: solid #111111 1px;
+    color: black;
+    text-align: center;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+
+    &.is-active {
+      color: white;
+      background-color: #111111;
+    }
+
+    &:hover {
+      color: white;
+      background-color: #111111;
+    }
+
+    a, a:hover, a:visited, a:active {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 }
