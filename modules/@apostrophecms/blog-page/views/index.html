@@ -5,9 +5,35 @@
 
 {% block title %}{{ data.page.title }} {% endblock %}
 
+{% block extraHead %}
+<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% macro renderBlogList() %}
+{% set page = data.query.page | default(1) | int %}
+{% for piece in data.pieces %}
+<div class="bg-preview-card"
+     {% if loop.last %}
+     hx-get="/blog?page={{page + 1}}&year={{data.query.year}}&showOnlyList=1&aposRefresh=1"
+     hx-trigger="revealed"
+     hx-swap="afterend"
+     {% endif %}
+>
+    <div class="bg-preview-date">
+        {{ __t('aposBlog:releasedOn') }} {{ piece.publishedAt | date('MMMM D, YYYY') }}
+    </div>
+    <div class="bg-preview-title">
+        <a href="{{ piece._url }}">{{ piece.title }}</a>
+    </div>
+</div>
+{% endfor %}
+{% endmacro %}
+
 {% block main %}
+{% if not data.query.showOnlyList == "1" %}
 <div class="bg-container">
     <h1 class="bg-h1">{{ data.page.title }}</h1>
+    <h2>{{ __t('aposBlog:filters') }}</h2>
 
     {% render filters.render({
     filters: data.piecesFilters,
@@ -17,19 +43,9 @@
 
     <h2>{{ __t('aposBlog:pluralLabel') }}</h2>
 
-    {% for piece in data.pieces %}
-    <div class="bg-preview-card">
-        <div class="bg-preview-date">
-            {{ __t('aposBlog:releasedOn') }} {{ piece.publishedAt | date('MMMM D, YYYY') }}
-        </div>
-        <div class="bg-preview-title">
-            <a href="{{ piece._url }}">{{ piece.title }}</a>
-        </div>
-    </div>
-    {% endfor %}
-
-    <div class="pagination ">
-    {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
-    </div>
+    {{ renderBlogList() }}
 </div>
+{% else %}
+{{ renderBlogList() }}
+{% endif %}
 {% endblock %}
