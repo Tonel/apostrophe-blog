@@ -26,7 +26,7 @@
     <button
         hx-get="/blog?page={{page + 1}}&year={{data.query.year}}&showOnlyList=1&aposRefresh=1"
         hx-target=".load-more-div"
-        hx-swap="outerHTML show:window:bottom"
+        hx-swap="outerHTML"
     >
         Load More
     </button>
