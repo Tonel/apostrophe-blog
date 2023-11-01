@@ -36,7 +36,7 @@
             {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url.replace("excludeTitle=1", "")) }}
         </div>
     </div>
-{% if not data.query.excludeTitle == "1" %}
+{% if data.query.excludeTitle != "1" %}
 </div>
 {% endif %}
 {% endblock %}
