@@ -10,10 +10,10 @@
 {% endblock %}
 
 {% block main %}
-{% if not data.query.showOnlyList == "1" %}
+{% if data.query.excludeTitle != "1" %}
 <div class="bg-container">
     <h1 class="bg-h1">{{ data.page.title }}</h1>
-    {% endif %}
+{% endif %}
     <div class="blog-page">
         <h2>{{ __t('aposBlog:filters') }}</h2>
         {% render filters.render({
@@ -33,10 +33,10 @@
         </div>
         {% endfor %}
         <div class="pagination">
-            {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url.replace("showOnlyList=1", "")) }}
+            {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url.replace("excludeTitle=1", "")) }}
         </div>
     </div>
-    {% if not data.query.showOnlyList == "1" %}
+{% if not data.query.excludeTitle == "1" %}
 </div>
 {% endif %}
 {% endblock %}

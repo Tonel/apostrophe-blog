@@ -7,9 +7,9 @@ year: data.query.year
 {%- macro htmxURL(url, changes) -%}
 {%- set baseURL = here(url, changes) -%}
 {%- if baseURL.includes('?') %}
-{{- baseURL + "&showOnlyList=1&aposRefresh=1" -}}
+{{- baseURL + "&excludeTitle=1&aposRefresh=1" -}}
 {%- else -%}
-{{- baseURL + "?showOnlyList=1&aposRefresh=1" -}}
+{{- baseURL + "?excludeTitle=1&aposRefresh=1" -}}
 {%- endif -%}
 {%- endmacro -%}
 
