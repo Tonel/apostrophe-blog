@@ -30,7 +30,7 @@
 {% endmacro %}
 
 {% block main %}
-{% if not data.query.showOnlyList == "1" %}
+{% if data.query.showOnlyList != "1" %}
 <div class="bg-container">
     <h1 class="bg-h1">{{ data.page.title }}</h1>
     <h2>{{ __t('aposBlog:filters') }}</h2>
