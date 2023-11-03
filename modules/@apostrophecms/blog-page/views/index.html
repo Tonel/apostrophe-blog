@@ -33,7 +33,7 @@
         </div>
         {% endfor %}
         <div class="pagination">
-            {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url.replace("excludeContainer=1", "")) }}
+            {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url | build({ excludeContainer: null })) }}
         </div>
     </div>
 {% if data.query.excludeContainer != "1" %}

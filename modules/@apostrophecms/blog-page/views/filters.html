@@ -1,16 +1,10 @@
 {%- macro here(url, changes) -%}
 {{ url | build({
 year: data.query.year
+}, {
+excludeContainer: 1,
+aposRefresh: 1
 }, changes) }}
-{%- endmacro -%}
-
-{%- macro htmxURL(url, changes) -%}
-{%- set baseURL = here(url, changes) -%}
-{%- if baseURL.includes('?') %}
-{{- baseURL + "&excludeContainer=1&aposRefresh=1" -}}
-{%- else -%}
-{{- baseURL + "?excludeContainer=1&aposRefresh=1" -}}
-{%- endif -%}
 {%- endmacro -%}
 
 {% fragment render(data) %}
@@ -19,7 +13,7 @@ year: data.query.year
     <li>
         <button
             class="{{ 'is-active' if data.query.year == year.value }}"
-            hx-get="{{ htmxURL(data.url, { year: year.value })}}"
+            hx-get="{{ here(data.url, { year: year.value })}}"
             hx-target=".blog-page"
             hx-swap="outerHTML"
         >
